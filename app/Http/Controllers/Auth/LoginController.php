@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Socialite;
 
 class LoginController extends Controller
 {
@@ -16,7 +17,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -35,5 +36,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function redirectToProvider(string $driver)
+    {
+        return Socialite::driver($driver)->redirect();
+    }
+    public function handleProviderCallback(string $driver)
+    {
+        if (!request()->has('code') || request()->has('denied')) {
+            session()->flash('message', ['danger', __("Inicio de sesión cancelado")]);
+        }
+
+        $socialUser = Socialite::driver($driver)->user();
+        dd($socialUser);
     }
 }

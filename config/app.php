@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     |
      */
-
+    LaravelFrontendPresets\ArgonPreset\ArgonPresetServiceProvider::class,
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

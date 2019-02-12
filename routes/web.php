@@ -10,9 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::get('login/{driver}','Auth\LoginController@redirectToProvider')->name('social_auth');
-Route::get('login/{driver}/callback','Auth\LoginController@handleProviderCallback');
-
+Route::get('login/{driver}', 'Auth\LoginController@redirectToProvider')->name('social_auth');
+Route::get('login/{driver}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,3 +20,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('user', 'UserController', ['except' => ['show']]);
+    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+    Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+});

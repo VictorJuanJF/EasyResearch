@@ -12,6 +12,7 @@
         "barryvdh/laravel-ide-helper": "^2.5",
         "caouecs/laravel-lang": "~3.0",
         "fideloper/proxy": "^4.0",
+        "laravel-frontend-presets/argon": "^1.0",
         "laravel/framework": "5.7.*",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0"
@@ -38,7 +39,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "LaravelFrontendPresets\\ArgonPreset\\": "presets/argon/src"
         },
         "classmap": [
             "database/seeds",
@@ -47,7 +49,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "LaravelFrontendPresets\\ArgonPreset\\": "presets/argon/src"
         }
     },
     "minimum-stability": "dev",
